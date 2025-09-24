@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о размере экрана</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            margin: 0;
+        }
+
+        .info {
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="info">
+        <h1>Информация о размере экрана</h1>
+        <p id="innerWidth">Доступная ширина экрана (innerWidth): </p>
+        <p id="innerHeight">Доступная высота экрана (innerHeight): </p>
+        <p id="outerWidth">Общая ширина окна (outerWidth): </p>
+        <p id="outerHeight">Общая высота окна (outerHeight): </p>
+        <p>Safe Area Insets:</p>
+        <ul>
+            <li>Top: <span id="safeAreaTop"></span></li>
+            <li>Right: <span id="safeAreaRight"></span></li>
+            <li>Bottom: <span id="safeAreaBottom"></span></li>
+            <li>Left: <span id="safeAreaLeft"></span></li>
+        </ul>
+    </div>
+
+    <script>
+        function updateScreenInfo() {
+            const innerWidth = window.innerWidth;
+            const innerHeight = window.innerHeight;
+            const outerWidth = window.outerWidth;
+            const outerHeight = window.outerHeight;
+
+            document.getElementById('innerWidth').textContent = `Доступная ширина экрана (innerWidth): ${innerWidth}px`;
+            document.getElementById('innerHeight').textContent = `Доступная высота экрана (innerHeight): ${innerHeight}px`;
+            document.getElementById('outerWidth').textContent = `Общая ширина окна (outerWidth): ${outerWidth}px`;
+            document.getElementById('outerHeight').textContent = `Общая высота окна (outerHeight): ${outerHeight}px`;
+
+            const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)');
+            const safeAreaRight = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-right)');
+            const safeAreaBottom = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)');
+            const safeAreaLeft = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-left)');
+
+            document.getElementById('safeAreaTop').textContent = safeAreaTop;
+            document.getElementById('safeAreaRight').textContent = safeAreaRight;
+            document.getElementById('safeAreaBottom').textContent = safeAreaBottom;
+            document.getElementById('safeAreaLeft').textContent = safeAreaLeft;
+        }
+
+        window.addEventListener('resize', updateScreenInfo);
+        updateScreenInfo();
+    </script>
+    <script>function initBridge() {
+            vkBridge.send('VKWebAppInit');
+        }</script>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js" onload="initBridge()"></script>
+</body>
+
+</html>
