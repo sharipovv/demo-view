@@ -34,6 +34,7 @@
         </ul>
         <button id="showBannerResizeBtn">VKWebAppShowBannerAd (resize)</button>
         <button id="showBannerOverlayBtn">VKWebAppShowBannerAd (overlay)</button>
+        <button id="hideBannerBtn">VKWebAppHideBannerAd</button>
         
     </div>
 
@@ -65,6 +66,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const btnResize = document.getElementById('showBannerResizeBtn');
             const btnOverlay = document.getElementById('showBannerOverlayBtn');
+            const btnHide = document.getElementById('hideBannerBtn');
             if (btnResize) {
                 btnResize.addEventListener('click', function() {
                     if (window.vkBridge) {
@@ -80,6 +82,13 @@
                         vkBridge.send('VKWebAppShowBannerAd', {
                             banner_location: 'bottom', height_type: "compact", layout_type: "overlay"
                         });
+                    }
+                });
+            }
+            if (btnHide) {
+                btnHide.addEventListener('click', function() {
+                    if (window.vkBridge) {
+                        vkBridge.send('VKWebAppHideBannerAd');
                     }
                 });
             }
